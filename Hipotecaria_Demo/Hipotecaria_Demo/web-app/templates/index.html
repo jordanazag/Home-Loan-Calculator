@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+  <title>Bank XYZ Home Loans Calculator </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/styles.css') }}">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body style="background-color: #cceaea">
+
+ <nav class="navbar navbar-dark bg-dark">
+    
+    <a class="navbar-brand" href="#">
+      <img src="../static/img/logo.png" alt="logo" style="width:40px;">
+    </a>
+    </nav> 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand" href="#page-top"><img src="../static/img/logo.png" alt="logo" style=width:40px> Bank XYZ</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div> 
+    </nav>
+
+    <section id="about">
+        <img src="../static/img/bankxyz.png" style="width: 100%;">
+      </div>
+    </section>
+
+
+  <section id="services">
+    <div class="bg-info text-white">
+      <div class="container-fluid text-center">
+        <br>
+        <h1>Welcome to the loan calculator of Bank XYZ</h1>  
+        <p class="lead">You can know your loan just by filling out this form</p><br>
+      </div>
+    </div>
+    </section>
+
+
+
+   <!-- <div class="container p-3 my-3 bg-dark text-white" style="app-header">
+      <h2>Insurance Charges Estimator</h2>
+      <p>Estimation by IBM Watson Machine Learning and AutoAI.</p>
+      <p>Fill out the form to see an estimate.</p>
+    </div> -->
+  
+  <div class="container p-3 my-3 bg-dark text-white">
+  <form class="col-md-6" class="justify-content-center" style=" color: #cecece; margin: 0 auto" method="POST" action="/predict">
+    <table >
+      <tbody>
+          <tr>
+            <td>
+              <div class="form-group"> {{ form.edad.label }} </td><td>{{ form.edad(size=20) }}</td></div>           
+          </tr>
+          <tr>
+            <td >
+                <div class="form-group">{{ form.estado_civil.label }}</td> <td> {{ form.estado_civil }}</td></div>
+            
+          </tr>
+          <tr>
+            <td width="50%">
+              <div class="form-group">{{ form.ingreso_mensual.label }}</td></div><td> {{ form.ingreso_mensual }}</td></div>
+            </td>
+          </tr>
+          <tr>
+            <td width="50%">
+              <div class="form-group">{{ form.anios_laboral.label }}</td><td> {{ form.anios_laboral }}</div>
+            </td>
+          </tr>
+          <tr>
+            <td width="50%">
+              <div class="form-group">{{ form.hijos.label }} </td><td>{{ form.hijos }}</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="form-group ">{{ form.region.label }}</td><td> {{ form.region }}</div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+    <input class="btn btn-light" id="submit" style="margin-bottom: 10px;" name="submit" type="submit" onclick="startSpinner()" value="Predict">
+
+    <br>
+  </form>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <div id="loader" style="color:black; display: none;" class="spinner-border"></div>
+  </div>
+  <div class="output-container">
+    <center>
+      <div id="output">
+        <h5 id="a">Your loan: </h5>
+        <h3 id="b">{{ form.abc }}$$</h3>
+      </div>
+    </center>
+  </div>
+
+  <script>
+
+window.onload = function exampleFunction() { 
+  
+  // var output = document.getElementById("output");
+  // output.style.display = "none"
+} 
+
+    function startSpinner() {
+      var x = document.getElementById("loader");
+      x.style.display = "block";
+      var output = document.getElementById("output");
+      output.style.display = "none"
+      setTimeout(function () {
+        var y = document.getElementById("output");
+        var x = document.getElementById("loader");
+        var a = document.getElementById("a");
+        var b = document.getElementById("b");
+        x.style.display = "none";
+        y.style.display = "block"
+        a.style.display = "block"
+        b.style.display = "block"
+      }, 3000);
+
+    }
+  </script>
+
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">&copy; 2020 Bank XYZ, S.A. </p>
+    </div>
+    </container>
+  </footer>
+
+</body>
+
+</html>
